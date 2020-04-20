@@ -67,4 +67,20 @@ class ControllerExtensionModuleCamposAdicionais extends Controller {
 		}			
 	}
 
+	// informações especiais
+	public function Historia() {		
+		$this->load->model('catalog/product');		
+		if (isset($this->request->get['product_id'])) {
+			$product_id = (int)$this->request->get['product_id'];
+		} else {
+			$product_id = 0;
+		}			
+		$product_info = array();
+		$product_info = $this->model_catalog_product->getProduct($product_id);	
+		$historia = html_entity_decode($product_info['historia'], ENT_QUOTES, 'UTF-8');		
+		if ( $historia <> '<p><br></p>' ) {
+		    return $historia;	
+		}			
+	}
+
 }
